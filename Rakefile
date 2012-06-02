@@ -15,11 +15,13 @@ end
 
 # desc "minify sizerizr script"
 Rake::Minify.new(:script) do
+
   dir("script") do # we specify only the source directory
     add("./script/sizrizr.min.js", "sizrizr.js")
     add("./test/scripts/sizrizr.min.js", "sizrizr.js")
   end
-  puts "Script Minified".colorize( :green )
+  puts "Scripts Minified".colorize( :green )
+
 end
 
 desc "build test site"
@@ -30,4 +32,15 @@ task :build do
     Rake::Task["script"].invoke
     puts "Build process complete".colorize(:green)
   end
+
+end
+
+desc 'run simple python server at /test'
+task :server do
+
+  begin
+    puts "Starting Server"
+    system "cd test && python -m SimpleHTTPServer 8000"
+  end
+
 end
