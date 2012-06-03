@@ -44,3 +44,13 @@ task :server do
   end
 
 end
+
+desc 'run build and server'
+task :refresh do
+
+  begin
+    Rake::Task["build"].invoke
+    Rake::Task["server"].invoke
+  end
+
+end

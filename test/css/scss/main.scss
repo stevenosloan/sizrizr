@@ -1,1 +1,25 @@
-@import "normalize.scss"
+@import "normalize.scss";
+
+html, body{
+  width: 100%;
+  height: 100%;
+}
+
+.img{
+  width: 100%;
+  height: 100%;
+  background: #d00;
+
+  .sizrizr-small &{
+    background: url(http://placehold.it/640x480&text=small);
+  }
+
+  .sizrizr-mid &{
+    background: url(http://placehold.it/640x480&text=mid);
+  }
+
+  .sizrizr-large &{
+    background: url(http://placehold.it/640x480&text=large);
+  }
+
+}
