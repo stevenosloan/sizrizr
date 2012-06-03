@@ -51,7 +51,9 @@ window.Sizrizr = (function( window, document ) {
 
     }
 
-
+    Sizrizr[name] = function( test ){
+      return test;
+    };
     return Sizrizr;
   };
 
@@ -62,8 +64,3 @@ window.Sizrizr = (function( window, document ) {
   return Sizrizr;
 
 })( this, this.document );
-
-
-Sizrizr.addPoint( "small", "under", 580 );
-Sizrizr.addPoint( "mid", "between", [ 580, 960 ]);
-Sizrizr.addPoint( "large", "over", 960 );

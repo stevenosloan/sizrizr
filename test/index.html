@@ -8,6 +8,15 @@
     <link rel="stylesheet" href="css/main.css">
     
     <script type="text/javascript" src="scripts/sizrizr.min.js"></script>
+    <script type="text/javascript">
+      Sizrizr.addPoint( "small", "under", 580 );
+      Sizrizr.addPoint( "mid", "between", [ 580, 960 ]);
+      Sizrizr.addPoint( "large", "over", 960 );
+
+      if( Sizrizr.small ){
+        alert("small");
+      }
+    </script>
     
   </head>
 
