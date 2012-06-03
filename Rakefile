@@ -18,9 +18,10 @@ Rake::Minify.new(:script) do
 
   dir("script") do # we specify only the source directory
     add("./script/sizrizr.min.js", "sizrizr.js")
-    add("./test/scripts/sizrizr.min.js", "sizrizr.js")
   end
   puts "Scripts Minified".colorize( :green )
+  system "rsync -avz ./script/ ./test/scripts/"
+  puts "Scripts Synced".colorize( :green )
 
 end
 
