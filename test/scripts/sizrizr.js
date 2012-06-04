@@ -27,7 +27,7 @@ window.Sizrizr = (function( window, document ) {
 
     var test = ( type === "between" && winWidth >= point[0] && winWidth < point[1] ) ? true : ( type === "under" && winWidth < point ) ? true : ( type === "over" && winWidth >= point ) ? true : false;
 
-    docElement.className += (test === true) ? ' sizrizr-'+name : docElement.className;
+    docElement.className = (test === true) ? docElement.className + ' sizrizr-' + name : docElement.className;
 
     Sizrizr[name] = ( test === true ) ? true : false;
     return Sizrizr;
