@@ -25,7 +25,7 @@ window.Sizrizr = (function( window, document ) {
   // point = number or array : array if type is "between"
   Sizrizr.addPoint = function( name, type, point ){
 
-    var test = ( type === "between" && winWidth >= point[0] && winWidth <= point[1] ) ? true : ( type === "under" && winWidth < point ) ? true : ( type === "over" && winWidth > point ) ? true : false;
+    var test = ( type === "between" && winWidth >= point[0] && winWidth < point[1] ) ? true : ( type === "under" && winWidth < point ) ? true : ( type === "over" && winWidth >= point ) ? true : false;
 
     docElement.className += (test === true) ? ' sizrizr-'+name : docElement.className;
 
