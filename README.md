@@ -1,27 +1,28 @@
 Sizrizr
 =======
 
-Plugin to write viewport tests
+Modernizr style testing for viewport width.
 
-### Goal
+Use
+---
 
-Calling:
+### Defining points:
 
-    Sizrizr({
-      name: 'small',
-      if: 'under',
-      point: 520
-    }, {
-      name: 'mid',
-      if: 'between',
-      point: { 520, 960 } 
-    }, {
-      name: 'large',
-      if: 'over',
-      point: 960
-    });
+`Sizrizr.addPoint( name, type, point );`
 
-Adds tests so that if your viewport is between 520, and 960 that `Sizrizr.( 'mid' )` returns true and the class `.sizrizr-mid` is applied to `<html>`
+__name__ : a string describing the breakpoint
+
+__type__ : a string that is either, `under`, `between`, or `over`. This describes weither the test will return true for values under, between two, or over the supplied point.
+
+__point__ : a number or array, use a number with a `type` of under or over, or an array with the bottom or upper bound
+
+
+### Testing:
+
+    if( Sizrizr.name ){
+      // do stuff
+    }
+
 
 
 
@@ -33,3 +34,5 @@ Rake Tasks for Test Site
 `rake script` - minify sizerizr js
 
 `rake build` - do it all
+
+`rake refresh` - run build and start server
