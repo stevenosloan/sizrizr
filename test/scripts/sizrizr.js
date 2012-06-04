@@ -29,9 +29,7 @@ window.Sizrizr = (function( window, document ) {
 
     docElement.className += (test === true) ? ' sizrizr-'+name : docElement.className;
 
-    Sizrizr[name] = function( test ){
-      return test;
-    };
+    Sizrizr[name] = ( test === true ) ? true : false;
     return Sizrizr;
 
   };
