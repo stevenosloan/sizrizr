@@ -2,8 +2,12 @@
 window.Sizrizr = (function( window, document ) {
 
   var docElement = document.documentElement,
-  Sizrizr = {},
-  classes = [ "sizrizr" ];
+
+  // Create a blank Sizrizr Object
+  Sizrizr = {};
+
+  // Create blank Sizrizr.points array, to track points as they're added
+  Sizrizr.points = [];
 
 
   // Get the window Width
@@ -18,25 +22,83 @@ window.Sizrizr = (function( window, document ) {
   //   //IE 4 compatible
   //   winWidth = document.body.clientWidth;
   // }
-  var winWidth = ( typeof( window.innerWidth ) == 'number' ) ? window.innerWidth : ( document.documentElement && ( document.documentElement.clientWidth ) ) ? document.documentElement.clientWidth : ( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) ? document.body.clientWidth : 0;
+  Sizrizr.width = function( docElement ){
+    var width = ( typeof( window.innerWidth ) == 'number' ) ? window.innerWidth : ( docElement && ( docElement.clientWidth ) ) ? docElement.clientWidth : ( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) ? document.body.clientWidth : 0;
+    return width;
+  };
+
+
 
   // name = string
   // type = string : "over", "under", or "between"
   // point = number or array : array if type is "between"
   Sizrizr.addPoint = function( name, type, point ){
 
-    var test = ( type === "between" && winWidth >= point[0] && winWidth < point[1] ) ? true : ( type === "under" && winWidth < point ) ? true : ( type === "over" && winWidth >= point ) ? true : false;
+    Sizrizr.points.push( name );
 
-    docElement.className = (test === true) ? docElement.className + ' sizrizr-' + name : docElement.className;
+    Sizrizr[name] = {
+      point: point,
+      type: type
+    };
 
-    Sizrizr[name] = ( test === true ) ? true : false;
     return Sizrizr;
 
   };
 
 
-  // Remove "no-js" class from <html> element, if it exists & add the new classes to the <html> element.
-  docElement.className = docElement.className.replace(/(^|\s)no-js(\s|$)/, '$1$2') + ' ' + classes.join(' ');
+  // Test a point by name, give its .test property a bool
+  Sizrizr.testPoint = function( name ){
+
+    var point = Sizrizr[name].point;
+    var type = Sizrizr[name].type;
+    var winWidth = Sizrizr.width();
+
+    var test = ( type === "between" && winWidth >= point[0] && winWidth < point[1] ) ? true : ( type === "under" && winWidth < point ) ? true : ( type === "over" && winWidth >= point ) ? true : false;
+
+    Sizrizr[name].test = ( test === true ) ? true : false;
+
+    if(test === true){ Sizrizr.classes.push( 'sizrizr-' + name ); }
+
+  };
+
+
+  // store existing classes on html element, and call testPoint on points that exist
+  Sizrizr.init = function(){
+
+    Sizrizr.classes = [ "sizrizr" ];
+
+    for (var i = 0; i < Sizrizr.points.length; i++) {
+      // console.log( Sizrizr.points[i] );
+      Sizrizr.testPoint( Sizrizr.points[i] );
+    }
+
+    // Remove "no-js" class from <html> element, if it exists & add the new classes to the <html> element.
+    docElement.className = docElement.className.replace(/(^|\s)no-js(\s|$)/, '$1$2');
+    Sizrizr.preclasses = docElement.className.split(' ');
+    docElement.className = Sizrizr.preclasses.join(' ') + ' ' + Sizrizr.classes.join(' ');
+
+    return Sizrizr;
+
+  };
+
+
+  // re-test all points and update the classes to match new tests
+  Sizrizr.refresh = function(){
+
+    Sizrizr.classes = [ "sizrizr" ];
+
+    for (var i = 0; i < Sizrizr.points.length; i++) {
+      // console.log( Sizrizr.points[i] );
+      Sizrizr.testPoint( Sizrizr.points[i] );
+    }
+
+    // Remove "no-js" class from <html> element, if it exists & add the new classes to the <html> element.
+    docElement.className = Sizrizr.preclasses.join(' ') + ' ' + Sizrizr.classes.join(' ');
+
+    return Sizrizr;
+
+  };
+
 
   return Sizrizr;
 
