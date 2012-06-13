@@ -2,29 +2,44 @@
 window.Sizrizr = (function( window, document ) {
 
   var docElement = document.documentElement,
-
-  // Create a blank Sizrizr Object
   Sizrizr = {};
-
-  // Create blank Sizrizr.points array, to track points as they're added
   Sizrizr.points = [];
 
+  
+  Sizrizr.width = function(){
 
-  // Get the window Width
-  // var winWidth = 0;
-  // if( typeof( window.innerWidth ) == 'number' ) {
-  //   //Non-IE
-  //   winWidth = window.innerWidth;
-  // } else if( document.documentElement && ( document.documentElement.clientWidth ) ) {
-  //   //IE 6+ in 'standards compliant mode'
-  //   winWidth = document.documentElement.clientWidth;
-  // } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
-  //   //IE 4 compatible
-  //   winWidth = document.body.clientWidth;
-  // }
-  Sizrizr.width = function( docElement ){
-    var width = ( typeof( window.innerWidth ) == 'number' ) ? window.innerWidth : ( docElement && ( docElement.clientWidth ) ) ? docElement.clientWidth : ( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) ? document.body.clientWidth : 0;
+    // Get the window Width
+    // var winWidth = 0;
+    // if( typeof( window.innerWidth ) == 'number' ) {
+    //   //Non-IE
+    //   winWidth = window.innerWidth;
+    // } else if( document.documentElement && ( document.documentElement.clientWidth ) ) {
+    //   //IE 6+ in 'standards compliant mode'
+    //   winWidth = document.documentElement.clientWidth;
+    // } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+    //   //IE 4 compatible
+    //   winWidth = document.body.clientWidth;
+    // }
+
+    var width = ( typeof( window.innerWidth ) == 'number' ) ? window.innerWidth : ( document.documentElement && ( document.documentElement.clientWidth ) ) ? document.documentElement.clientWidth : ( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) ? document.body.clientWidth : 0;
     return width;
+  };
+
+
+
+
+  Sizrizr.testPoint = function( name ){
+
+    var point = Sizrizr[name].point;
+    var type = Sizrizr[name].type;
+    var winWidth = Sizrizr.width();
+
+    var test = ( type === "between" && winWidth >= point[0] && winWidth < point[1] ) ? true : ( type === "under" && winWidth < point ) ? true : ( type === "over" && winWidth >= point ) ? true : false;
+
+    Sizrizr[name].test = ( test === true ) ? true : false;
+
+    if(test === true){ Sizrizr.classes.push( 'sizrizr-' + name ); }
+
   };
 
 
@@ -46,23 +61,6 @@ window.Sizrizr = (function( window, document ) {
   };
 
 
-  // Test a point by name, give its .test property a bool
-  Sizrizr.testPoint = function( name ){
-
-    var point = Sizrizr[name].point;
-    var type = Sizrizr[name].type;
-    var winWidth = Sizrizr.width();
-
-    var test = ( type === "between" && winWidth >= point[0] && winWidth < point[1] ) ? true : ( type === "under" && winWidth < point ) ? true : ( type === "over" && winWidth >= point ) ? true : false;
-
-    Sizrizr[name].test = ( test === true ) ? true : false;
-
-    if(test === true){ Sizrizr.classes.push( 'sizrizr-' + name ); }
-
-  };
-
-
-  // store existing classes on html element, and call testPoint on points that exist
   Sizrizr.init = function(){
 
     Sizrizr.classes = [ "sizrizr" ];
@@ -81,8 +79,6 @@ window.Sizrizr = (function( window, document ) {
 
   };
 
-
-  // re-test all points and update the classes to match new tests
   Sizrizr.refresh = function(){
 
     Sizrizr.classes = [ "sizrizr" ];
@@ -100,6 +96,13 @@ window.Sizrizr = (function( window, document ) {
   };
 
 
+
+
+  
+
   return Sizrizr;
+
+
+
 
 })( this, this.document );
