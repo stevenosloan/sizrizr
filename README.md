@@ -14,6 +14,16 @@ Basic Usage
 
 See the [test](https://github.com/stevenosloan/Sizrizr/blob/master/test/index.html) for an example
 
+    <head>
+      <script type="text/javascript" src="path/to/sizrizr.min.js"></script>
+      <script type="text/javascript">
+        Sizrizr.addPoint( 'small', 'under', 580 );
+        Sizrizr.addPoint( 'mid', 'between', [ 580, 960 ] );
+        Sizrizr.addPoint( 'large', 'over', 960 );
+        Sizrizr.init();
+      </script>
+    </head>
+
 Methods
 -------
 
