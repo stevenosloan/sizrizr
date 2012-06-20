@@ -31,7 +31,7 @@ Once `Sizrizr.init()` is called you can test against the point using `Sizrizr.{{
 `Sizrizr.init()` : the first call for Sizrizr, this caches the existing html classes then test all points that have been registered thus far.
 
 ### refresh
-`Sizrizr.refresh()` : refreshes all registered points and applies the approprate classes to the <html> element
+`Sizrizr.refresh()` : refreshes all registered points and applies the approprate classes to the `<html>` element
 
 ### width
 `Sizrizr.width` : Returns the window width when `Sizrizr.init()` or `Sizrizr.refresh()` was called
