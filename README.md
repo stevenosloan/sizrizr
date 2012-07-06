@@ -44,7 +44,7 @@ Once `Sizrizr.init()` is called you can test against the point using `Sizrizr.{{
 `Sizrizr.refresh()` : refreshes all registered points and applies the approprate classes to the `<html>` element
 
 ### width
-`Sizrizr.width` : Returns the window width when `Sizrizr.init()` or `Sizrizr.refresh()` was called
+`Sizrizr.width()` : Returns the current window width 
 
 
 
