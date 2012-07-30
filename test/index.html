@@ -13,7 +13,7 @@
       Sizrizr.addPoint( "mid", "between", [ 580, 960 ]);
       Sizrizr.addPoint( "large", "over", 960 );
 
-      Sizrizr.init();
+      Sizrizr.run();
     </script>
     
   </head>
@@ -26,7 +26,7 @@
       // debulked onresize handler - https://github.com/louisremi/jquery-smartresize
       function on_resize(c,t){onresize=function(){clearTimeout(t);t=setTimeout(c,100)};return c};
 
-      window.on_resize(  Sizrizr.refresh );
+      window.on_resize(  Sizrizr.run );
     </script>
 
   </body>
