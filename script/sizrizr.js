@@ -5,7 +5,7 @@ window.Sizrizr = (function( window, document ) {
   Sizrizr = {};
 
   // Sizrizr version number
-  Sizrizr.version = 0.1;
+  Sizrizr.version = 0.2;
 
   // Create blank Sizrizr.points array, to track points as they're added
   Sizrizr.points = [];
