@@ -33,11 +33,10 @@ window.Sizrizr = (function( window, document ) {
 
 
 
-  Sizrizr.testPoint = function( name ){
+  Sizrizr.testPoint = function( name, winWidth ){
 
     var point = Sizrizr[name].point;
     var type = Sizrizr[name].type;
-    var winWidth = Sizrizr.width();
 
     var test = ( type === "between" && winWidth >= point[0] && winWidth < point[1] ) ? true : ( type === "under" && winWidth < point ) ? true : ( type === "over" && winWidth >= point ) ? true : false;
 
@@ -87,10 +86,13 @@ window.Sizrizr = (function( window, document ) {
   Sizrizr.refresh = function(){
 
     Sizrizr.classes = [ "sizrizr" ];
+    // grab the current width
+    var winWidth = Sizrizr.width();
 
     for (var i = 0; i < Sizrizr.points.length; i++) {
       // console.log( Sizrizr.points[i] );
       Sizrizr.testPoint( Sizrizr.points[i] );
+      Sizrizr.testPoint( Sizrizr.points[i], winWidth );
     }
 
     // Remove "no-js" class from <html> element, if it exists & add the new classes to the <html> element.
