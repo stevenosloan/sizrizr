@@ -65,47 +65,25 @@ window.Sizrizr = (function( window, document ) {
   };
 
 
-  Sizrizr.init = function(){
+  Sizrizr.run = function(){
 
     Sizrizr.classes = [ "sizrizr" ];
 
-    for (var i = 0; i < Sizrizr.points.length; i++) {
-      // console.log( Sizrizr.points[i] );
-      Sizrizr.testPoint( Sizrizr.points[i] );
-    }
-
-    // Remove "no-js" class from <html> element, if it exists & add the new classes to the <html> element.
-    docElement.className = docElement.className.replace(/(^|\s)no-js(\s|$)/, '$1$2');
-    Sizrizr.preclasses = docElement.className.split(' ');
-    docElement.className = Sizrizr.preclasses.join(' ') + ' ' + Sizrizr.classes.join(' ');
-
-    return Sizrizr;
-
-  };
-
-  Sizrizr.refresh = function(){
-
-    Sizrizr.classes = [ "sizrizr" ];
     // grab the current width
     var winWidth = Sizrizr.width();
 
     for (var i = 0; i < Sizrizr.points.length; i++) {
-      // console.log( Sizrizr.points[i] );
-      Sizrizr.testPoint( Sizrizr.points[i] );
       Sizrizr.testPoint( Sizrizr.points[i], winWidth );
     }
 
-    // Remove "no-js" class from <html> element, if it exists & add the new classes to the <html> element.
-    docElement.className = Sizrizr.preclasses.join(' ') + ' ' + Sizrizr.classes.join(' ');
+    // Remove "no-js" class from <html> element, if it exists
+    // remove sizrizr and sizrizr-{pont} from <html> if they exist
+    // add the new classes to the <html> element.
+    docElement.className = docElement.className.replace(/(^|\s)no-js(\s|$)/, '$1$2').replace(/(\s|)sizrizr(-\w*|)(\s|)/g, '') + ' ' + Sizrizr.classes.join(' ');
 
     return Sizrizr;
 
   };
-
-
-
-
-  
 
   return Sizrizr;
 
