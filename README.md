@@ -76,3 +76,9 @@ Rake Tasks for Test Site
 `rake build` - do it all
 
 `rake refresh` - run build and start server
+
+
+Meta
+----
+
+Released under the [MIT License](http://opensource.org/licenses/mit-license.php)
