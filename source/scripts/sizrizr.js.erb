@@ -68,6 +68,9 @@ window.Sizrizr = ( function( window, document ) {
     if( test === true ){
       Sizrizr[name].test = true;
       Sizrizr.classes.push( 'sizrizr-' + name );
+      if ( Sizrizr[name].hasOwnProperty('onchange_to') ) {
+        Sizrizr[name].onchange_to();
+      }
     }
 
   };
@@ -93,6 +96,19 @@ window.Sizrizr = ( function( window, document ) {
     return Sizrizr;
 
   };
+
+
+  /*
+  **  Add a callback function to be called when a
+  **  sizrizr point becomes true
+  **
+  **  @param name [String] name of the point
+  **  @param func [Function]
+  **
+  */
+  Sizrizr.onchange_to = function( name, func ) {
+    Sizrizr[name].onchange_to = func;
+  }
 
 
   /*
