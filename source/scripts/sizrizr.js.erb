@@ -37,9 +37,11 @@ window.Sizrizr = ( function( window, document ) {
 
 
   /*
+  **  Handler for running a test on a point
   **
-  **
-  **
+  **  @param name [String] name of the point to test
+  **  @param winWidth [Integer] current width of the window
+  **  @return [Void]
   */
   Sizrizr.testPoint = function( name, winWidth ){
 
@@ -78,24 +80,32 @@ window.Sizrizr = ( function( window, document ) {
 
 
   /*
+  **  Run sizrizr, this test all currently set points
+  **  and applies classes as needed
   **
-  **
-  **
+  **  @return [Sizrizr]
   */
   Sizrizr.run = function(){
 
+    // sizrizr is the default class
     Sizrizr.classes = [ "sizrizr" ];
 
     // grab the current width
     var winWidth = Sizrizr.width();
 
     for (var i = 0; i < Sizrizr.points.length; i++) {
+    /*
+    **  Loop through all the sizrizr points
+    **  and run a test with the current winWidth
+    */
       Sizrizr.testPoint( Sizrizr.points[i], winWidth );
     }
 
-    // Remove "no-js" class from <html> element, if it exists
-    // remove sizrizr and sizrizr-{pont} from <html> if they exist
-    // add the new classes to the <html> element.
+    /*
+    **  Remove "no-js" class from <html> element, if it exists
+    **  remove sizrizr and sizrizr-{pont} from <html> if they exist
+    **  add the new classes to the <html> element.
+    */
     docElement.className = docElement.className.replace(/(^|\s)no-js(\s|$)/, '$1$2').replace(/(\s|)sizrizr(-\w*|)(\s|)/g, '') + ' ' + Sizrizr.classes.join(' ');
 
     return Sizrizr;
