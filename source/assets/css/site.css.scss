@@ -1,0 +1,23 @@
+body {
+  background: #f2f2f2;
+  font-family: Helvetica, Arial, sans-serif;
+    color: #474747;
+}
+
+.content {
+  text-align: center;
+  &:before {
+    font-size: 20vmin;
+    line-height: 90vh;
+    font-weight: bold;
+  }
+  .sizrizr-small &:before{
+    content: "small";
+  }
+  .sizrizr-mid &:before{
+    content: "mid";
+  }
+  .sizrizr-large &:before{
+    content: "large";
+  }
+}

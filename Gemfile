@@ -1,6 +1,16 @@
-source :rubygems
+source "https://rubygems.org"
 
+# utility
 gem "rake"
-gem "sass"
 gem "colorize"
-gem 'rake-minify'
+gem "uglifier"
+
+# templating
+gem "middleman", "~> 3.0"
+gem "middleman-livereload"
+gem "sass"
+gem "haml"
+
+# runtime env
+gem "therubyracer"
+gem "oj"
