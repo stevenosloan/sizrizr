@@ -22,8 +22,7 @@ namespace :middleman do
       system cmd
     end
     puts "\n\n-----------------------------------\n\n"
-    puts "built in #{time}"
-    puts "\n\n-----------------------------------\n\n"
+    puts "built in: #{time}s"
   end
 
   desc "preview the built site running on rack"

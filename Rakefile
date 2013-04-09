@@ -1,3 +1,5 @@
+require 'colorize'
+
 # Add ./lib to the load path
 $LOAD_PATH << File.join( Dir.pwd, '/lib' )
 
@@ -9,5 +11,15 @@ task :server do
 end
 
 task :build do
-  Rake::Task["middleman:build"]
+  minimized_path = File.join( Dir.pwd, "build/sizrizr.min.js" )
+  minimized_size = File.new( minimized_path ).size
+  Rake::Task["middleman:build"].invoke
+  new_minimized_size = File.new( minimized_path ).size
+
+  puts "orginal size: #{minimized_size}"
+  puts "new size: #{new_minimized_size}"
+  print "\ndifference: "
+  color = ( new_minimized_size > minimized_size ) ? :red : :green
+  print "#{new_minimized_size - minimized_size}".colorize(color)
+  puts "\n\n-----------------------------------\n\n"
 end
