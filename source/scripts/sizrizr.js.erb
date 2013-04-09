@@ -1,42 +1,50 @@
 /*
-**  Sizrizr v0.2 | MIT
+**  Sizrizr v0.2 | MIT foo
 **  built: <%= Time.now.strftime('%b %d,%Y') %>
 */
 window.Sizrizr = ( function( window, document ) {
 
   var docElement = document.documentElement,
-  Sizrizr = {};
+      Sizrizr = {};
 
-  // Create blank Sizrizr.points array, to track points as they're added
+
+  /*
+  **  Sizrizr points array
+  **  stores points as they're added
+  */
   Sizrizr.points = [];
 
 
+  /*
+  **  Get the current window width
+  **  @return [Integer]
+  */
   Sizrizr.width = function(){
 
-    // Get the window Width
-    // var winWidth = 0;
-    // if( typeof( window.innerWidth ) == 'number' ) {
-    //   //Non-IE
-    //   winWidth = window.innerWidth;
-    // } else if( document.documentElement && ( document.documentElement.clientWidth ) ) {
-    //   //IE 6+ in 'standards compliant mode'
-    //   winWidth = document.documentElement.clientWidth;
-    // } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
-    //   //IE 4 compatible
-    //   winWidth = document.body.clientWidth;
-    // }
+    var width = 0,
+        docBody = document.body;
 
-    var width = ( typeof( window.innerWidth ) == 'number' ) ? window.innerWidth : ( document.documentElement && ( document.documentElement.clientWidth ) ) ? document.documentElement.clientWidth : ( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) ? document.body.clientWidth : 0;
+    if( typeof( window.innerWidth ) == 'number' ) {
+      width = window.innerWidth; //Non-IE
+    } else if( docElement && ( docElement.clientWidth ) ) {
+      width = docElement.clientWidth; //IE 6+ in 'standards compliant mode'
+    } else if( docBody && ( docBody.clientWidth || docBody.clientHeight ) ) {
+      width = docBody.clientWidth; //IE 4 compatible
+    }
+
     return width;
   };
 
 
-
-
+  /*
+  **
+  **
+  **
+  */
   Sizrizr.testPoint = function( name, winWidth ){
 
-    var point = Sizrizr[name].point;
-    var type = Sizrizr[name].type;
+    var point = Sizrizr[name].point,
+        type = Sizrizr[name].type;
 
     var test = ( type === "between" && winWidth >= point[0] && winWidth < point[1] ) ? true : ( type === "under" && winWidth < point ) ? true : ( type === "over" && winWidth >= point ) ? true : false;
 
@@ -47,10 +55,14 @@ window.Sizrizr = ( function( window, document ) {
   };
 
 
-
-  // name = string
-  // type = string : "over", "under", or "between"
-  // point = number or array : array if type is "between"
+  /*
+  **  Add a point to track the window width for
+  **
+  **  @param name [String]
+  **  @param type [String] options: "over", "under", "between"
+  **  @param point [Integer|Array] use an array if type is "between"
+  **  @return [Void]
+  */
   Sizrizr.addPoint = function( name, type, point ){
 
     Sizrizr.points.push( name );
@@ -65,6 +77,11 @@ window.Sizrizr = ( function( window, document ) {
   };
 
 
+  /*
+  **
+  **
+  **
+  */
   Sizrizr.run = function(){
 
     Sizrizr.classes = [ "sizrizr" ];
@@ -86,8 +103,6 @@ window.Sizrizr = ( function( window, document ) {
   };
 
   return Sizrizr;
-
-
 
 
 })( this, this.document );
