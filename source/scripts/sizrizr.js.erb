@@ -49,9 +49,6 @@ window.Sizrizr = ( function( window, document ) {
         type = Sizrizr[name].type;
         test = false;
 
-    // Default is for the test to fail
-    Sizrizr[name].test = false;
-
     // Test if point is between top/bottom points
     test = ( type === "between" && winWidth >= point[0] && winWidth < point[1] ) ? true : test;
 
@@ -66,11 +63,13 @@ window.Sizrizr = ( function( window, document ) {
     ** and add the current point's class to the classes array
     */
     if( test === true ){
-      Sizrizr[name].test = true;
-      Sizrizr.classes.push( 'sizrizr-' + name );
-      if ( Sizrizr[name].hasOwnProperty('onchange_to') ) {
+      if ( Sizrizr[name].hasOwnProperty('onchange_to') && !Sizrizr[name].test ) {
         Sizrizr[name].onchange_to();
       }
+      Sizrizr[name].test = true;
+      Sizrizr.classes.push( 'sizrizr-' + name );
+    } else {
+      Sizrizr[name].test = false;
     }
 
   };
