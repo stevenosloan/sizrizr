@@ -1,56 +1,88 @@
-// Sizrizr
-window.Sizrizr = (function( window, document ) {
+/*
+**  Sizrizr v0.3 | MIT foo
+**  built: Apr 09,2013
+*/
+window.Sizrizr = ( function( window, document ) {
 
   var docElement = document.documentElement,
-  Sizrizr = {};
+      Sizrizr = {};
 
-  // Sizrizr version number
-  Sizrizr.version = 0.2;
 
-  // Create blank Sizrizr.points array, to track points as they're added
+  /*
+  **  Sizrizr points array
+  **  stores points as they're added
+  */
   Sizrizr.points = [];
 
-  
+
+  /*
+  **  Get the current window width
+  **  @return [Integer]
+  */
   Sizrizr.width = function(){
 
-    // Get the window Width
-    // var winWidth = 0;
-    // if( typeof( window.innerWidth ) == 'number' ) {
-    //   //Non-IE
-    //   winWidth = window.innerWidth;
-    // } else if( document.documentElement && ( document.documentElement.clientWidth ) ) {
-    //   //IE 6+ in 'standards compliant mode'
-    //   winWidth = document.documentElement.clientWidth;
-    // } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
-    //   //IE 4 compatible
-    //   winWidth = document.body.clientWidth;
-    // }
+    var width = 0,
+        docBody = document.body;
 
-    var width = ( typeof( window.innerWidth ) == 'number' ) ? window.innerWidth : ( document.documentElement && ( document.documentElement.clientWidth ) ) ? document.documentElement.clientWidth : ( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) ? document.body.clientWidth : 0;
+    if( typeof( window.innerWidth ) == 'number' ) {
+      width = window.innerWidth; //Non-IE
+    } else if( docElement && ( docElement.clientWidth ) ) {
+      width = docElement.clientWidth; //IE 6+ in 'standards compliant mode'
+    } else if( docBody && ( docBody.clientWidth || docBody.clientHeight ) ) {
+      width = docBody.clientWidth; //IE 4 compatible
+    }
+
     return width;
   };
 
 
-
-
+  /*
+  **  Handler for running a test on a point
+  **
+  **  @param name [String] name of the point to test
+  **  @param winWidth [Integer] current width of the window
+  **  @return [Void]
+  */
   Sizrizr.testPoint = function( name, winWidth ){
 
-    var point = Sizrizr[name].point;
-    var type = Sizrizr[name].type;
+    var point = Sizrizr[name].point,
+        type = Sizrizr[name].type;
+        test = false;
 
-    var test = ( type === "between" && winWidth >= point[0] && winWidth < point[1] ) ? true : ( type === "under" && winWidth < point ) ? true : ( type === "over" && winWidth >= point ) ? true : false;
+    // Test if point is between top/bottom points
+    test = ( type === "between" && winWidth >= point[0] && winWidth < point[1] ) ? true : test;
 
-    Sizrizr[name].test = ( test === true ) ? true : false;
+    // Test if point is below point
+    test = ( type === "under" && winWidth < point ) ? true : test
 
-    if(test === true){ Sizrizr.classes.push( 'sizrizr-' + name ); }
+    // Test if point is above point
+    test = ( type === "over" && winWidth >= point ) ? true : test;
+
+    /*
+    ** If the test has passed, set test to true
+    ** and add the current point's class to the classes array
+    */
+    if( test === true ){
+      if ( Sizrizr[name].hasOwnProperty('onchange_to') && !Sizrizr[name].test ) {
+        Sizrizr[name].onchange_to();
+      }
+      Sizrizr[name].test = true;
+      Sizrizr.classes.push( 'sizrizr-' + name );
+    } else {
+      Sizrizr[name].test = false;
+    }
 
   };
 
 
-
-  // name = string
-  // type = string : "over", "under", or "between"
-  // point = number or array : array if type is "between"
+  /*
+  **  Add a point to track the window width for
+  **
+  **  @param name [String]
+  **  @param type [String] options: "over", "under", "between"
+  **  @param point [Integer|Array] use an array if type is "between"
+  **  @return [Void]
+  */
   Sizrizr.addPoint = function( name, type, point ){
 
     Sizrizr.points.push( name );
@@ -65,20 +97,47 @@ window.Sizrizr = (function( window, document ) {
   };
 
 
+  /*
+  **  Add a callback function to be called when a
+  **  sizrizr point becomes true
+  **
+  **  @param name [String] name of the point
+  **  @param func [Function]
+  **
+  */
+  Sizrizr.onchange_to = function( name, func ) {
+    Sizrizr[name].onchange_to = func;
+  }
+
+
+  /*
+  **  Run sizrizr, this test all currently set points
+  **  and applies classes as needed
+  **
+  **  @return [Sizrizr]
+  */
   Sizrizr.run = function(){
 
+    // sizrizr is the default class
     Sizrizr.classes = [ "sizrizr" ];
 
     // grab the current width
     var winWidth = Sizrizr.width();
 
-    for (var i = 0; i < Sizrizr.points.length; i++) {
+    /*
+    **  Loop through all the sizrizr points
+    **  and run a test with the current winWidth
+    */
+    var point_count = Sizrizr.points.length;
+    for ( var i = 0; i < point_count; i++ ) {
       Sizrizr.testPoint( Sizrizr.points[i], winWidth );
     }
 
-    // Remove "no-js" class from <html> element, if it exists
-    // remove sizrizr and sizrizr-{pont} from <html> if they exist
-    // add the new classes to the <html> element.
+    /*
+    **  Remove "no-js" class from <html> element, if it exists
+    **  remove sizrizr and sizrizr-{pont} from <html> if they exist
+    **  add the new classes to the <html> element.
+    */
     docElement.className = docElement.className.replace(/(^|\s)no-js(\s|$)/, '$1$2').replace(/(\s|)sizrizr(-\w*|)(\s|)/g, '') + ' ' + Sizrizr.classes.join(' ');
 
     return Sizrizr;
@@ -86,8 +145,6 @@ window.Sizrizr = (function( window, document ) {
   };
 
   return Sizrizr;
-
-
 
 
 })( this, this.document );
