@@ -109,11 +109,12 @@ window.Sizrizr = ( function( window, document ) {
     // grab the current width
     var winWidth = Sizrizr.width();
 
-    for (var i = 0; i < Sizrizr.points.length; i++) {
     /*
     **  Loop through all the sizrizr points
     **  and run a test with the current winWidth
     */
+    var point_count = Sizrizr.points.length;
+    for ( var i = 0; i < point_count; i++ ) {
       Sizrizr.testPoint( Sizrizr.points[i], winWidth );
     }
 
