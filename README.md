@@ -3,7 +3,7 @@ Sizrizr
 
 Modernizr style testing for viewport width. Sizrizr will add a class to the `<html>` element for each point added in the format `.sizrizr-{{point_name}}` as well as creating an object to test against `Sizrizr.{{name}}.test`
 
-## current version: 0.2
+## current version: 0.3
 
 [sizrizr.min.js](https://github.com/stevenosloan/Sizrizr/edit/master/build/sizrizr.min.js)<br/>
 [sizrizr.js](https://github.com/stevenosloan/Sizrizr/edit/master/build/sizrizr.js)
@@ -39,6 +39,9 @@ Once `Sizrizr.run()` is called you can test against the point using `Sizrizr.{{n
 
 ### width
 `Sizrizr.width()` : Returns the current window width
+
+### onchange_to
+`Sizrizr.onchange_to("small", function(){ alert("I'm now small") })` : adds a callback that fires when a point becomes true
 
 
 Resize Events
