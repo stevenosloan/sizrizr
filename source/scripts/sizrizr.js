@@ -10,7 +10,7 @@ window.Sizrizr = (function( window, document ) {
   // Create blank Sizrizr.points array, to track points as they're added
   Sizrizr.points = [];
 
-  
+
   Sizrizr.width = function(){
 
     // Get the window Width
