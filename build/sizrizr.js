@@ -1,5 +1,5 @@
 /*
-**  Sizrizr v0.3 | MIT foo
+**  Sizrizr v0.3.1 | MIT foo
 **  https://github.com/stevenosloan/Sizrizr
 **  built: Apr 10,2013
 */
@@ -139,7 +139,7 @@ window.Sizrizr = ( function( window, document ) {
     **  remove sizrizr and sizrizr-{pont} from <html> if they exist
     **  add the new classes to the <html> element.
     */
-    docElement.className = docElement.className.replace(/(^|\s)no-js(\s|$)/, '$1$2').replace(/(\s|)sizrizr(-\w*|)(\s|)/g, '') + ' ' + Sizrizr.classes.join(' ');
+    docElement.className = docElement.className.replace(/(^|\s)no-js(\s|$)/, '$1$2').replace(/(\s)?sizrizr(-\w*)?/g, '') + ' ' + Sizrizr.classes.join(' ');
 
     return Sizrizr;
 
