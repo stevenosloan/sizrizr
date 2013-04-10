@@ -1,6 +1,7 @@
 /*
 **  Sizrizr v0.3 | MIT foo
-**  built: Apr 09,2013
+**  https://github.com/stevenosloan/Sizrizr
+**  built: Apr 10,2013
 */
 window.Sizrizr = ( function( window, document ) {
 
