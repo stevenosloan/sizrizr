@@ -21,7 +21,8 @@ GEM
     execjs (1.4.0)
       multi_json (~> 1.0)
     fssm (0.2.10)
-    haml (4.0.2)
+    haml (5.0.0)
+      temple (>= 0.8.0)
       tilt
     hike (1.2.2)
     http_parser.rb (0.5.3)
@@ -102,6 +103,7 @@ GEM
       sprockets (~> 2.0)
       tilt (~> 1.1)
     syntax (1.0.0)
+    temple (0.8.2)
     therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
       ref
